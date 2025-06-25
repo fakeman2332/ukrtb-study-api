@@ -1,0 +1,27 @@
+{
+  "name": "ukrtb-study-api",
+  "version": "1.0.0",
+  "description": "JavaScript SDK for study.ukrtb.ru API",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo 1"
+  },
+  "keywords": [
+    "api",
+    "ukrtb",
+    "sdk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fakeman2332/ukrtb-study-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fakeman2332/ukrtb-study-api/issues"
+  },
+  "homepage": "https://github.com/fakeman2332/ukrtb-study-api",
+  "author": "Damir Bulatov (admin@fakeman.xyz)",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.6.1"
+  }
+}
