@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/fakeman2332/ukrtb-study-api",
   "author": "Damir Bulatov (admin@fakeman.xyz)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "prettier": "^3.6.1"
   }
