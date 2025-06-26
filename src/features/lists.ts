@@ -28,6 +28,10 @@ class Lists {
   async getGroups(): Promise<Group[]> {
     const response: AxiosResponse<ApiResponse<Group[]>> = await this.http.get('groups');
 
+    if (response.status === 204) {
+      return [];
+    }
+
     if (response.status !== 200) {
       throw new Error(`Не удалось получить список групп:\n${response.data}`);
     }
@@ -47,6 +51,10 @@ class Lists {
   async getTeachers(): Promise<Teacher[]> {
     const response = await this.http.get<ApiResponse<Teacher[]>>('teachers');
 
+    if (response.status === 204) {
+      return [];
+    }
+
     if (response.status !== 200) {
       throw new Error(`Не удалось получить список преподавателей:\n${response.data}`);
     }
@@ -65,6 +73,10 @@ class Lists {
    */
   async getCabs(): Promise<Cabinet[]> {
     const response: AxiosResponse<ApiResponse<Cabinet[]>> = await this.http.get('cabs');
+
+    if (response.status === 204) {
+      return [];
+    }
 
     if (response.status !== 200) {
       throw new Error(`Не удалось получить список кабинетов:\n${response.data}`);
