@@ -1,5 +1,5 @@
 import { API_BASE } from '@/globals';
-import axios, { type AxiosInstance } from 'axios';
+import { type AxiosInstance } from 'axios';
 import type { Discipline, Semester } from '@/types/student/score';
 import type { ApiResponse } from '@/types/api-response';
 import type { AttendanceSubject } from '@/types/student/attendance';

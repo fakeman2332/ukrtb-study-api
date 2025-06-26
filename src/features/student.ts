@@ -2,9 +2,7 @@ import type { AuthResponse, User } from '@/types/auth-response';
 import { API_BASE } from '@/globals';
 import axios, { type AxiosInstance } from 'axios';
 import type { ApiResponse } from '@/types/api-response';
-import type { SubjectScores } from '@/types/student/score';
 import Attendance from '@/features/student/attendance';
-import Scores from '@/features/student/scores';
 import TokenStorage from '@/features/tokenStorage';
 
 class Student {
@@ -70,7 +68,6 @@ class Student {
 
   /**
    * Получает информацию о текущем пользователе.
-   * @param {string} authToken - Токен авторизации студента.
    * @returns {Promise<AuthResponse>} Ответ с информацией о пользователе.
    * @throws {Error} Если не удалось получить информацию о пользователе или произошла ошибка API.
    */
