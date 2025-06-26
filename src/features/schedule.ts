@@ -10,7 +10,7 @@ class Schedule {
     this.apiKey = apiKey;
 
     this.http = axios.create({
-      baseURL: `https://${API_BASE}/schedules`,
+      baseURL: `${API_BASE}/schedules`,
       headers: {
         Accept: 'application/json',
         apikey: this.apiKey
