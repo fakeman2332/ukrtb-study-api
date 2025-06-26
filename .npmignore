@@ -1,0 +1,13 @@
+src/
+tests/
+*.test.ts
+*.spec.ts
+tsconfig.json
+.eslintrc.*
+.prettierrc.*
+vitest.config.*
+.env*
+node_modules/
+.git/
+.idea/
+tsup.config.ts
