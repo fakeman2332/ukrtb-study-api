@@ -5,6 +5,7 @@
     "moduleResolution": "Node",
     "rootDir": "./src",
     "outDir": "./dist",
+    "baseUrl": "./",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -16,7 +17,7 @@
     "allowImportingTsExtensions": false,
     "noEmit": false,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*"],
