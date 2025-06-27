@@ -20,7 +20,6 @@ class Attendance {
 
   /**
    * Получает список дисциплин с пропусками студента.
-   * @param {string} authToken - Токен авторизации студента.
    * @returns {Promise<DisciplineDto[]>} Список дисциплин.
    * @throws {Error} Если не удалось получить дисциплины или произошла ошибка API.
    */
