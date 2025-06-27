@@ -20,7 +20,8 @@ export class AuthenticatedStudent extends BaseApiClient {
   }
 
   /**
-   * Получает обновленную информацию о пользователе
+   * Получает информацию о пользователе
+   * @return {Promise<UserDto>} - Информация о пользователе
    */
   async getCurrentUser(): Promise<UserDto> {
     return this.makeRequest<UserDto>('get', '');
@@ -28,6 +29,7 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает список дисциплин для оценок
+   * @return {Promise<DisciplineDto[]>} - Список дисциплин
    */
   async getScoreDisciplines(): Promise<DisciplineDto[]> {
     return this.scoresClient.makeRequest<DisciplineDto[]>('get', 'disciplines');
@@ -35,6 +37,7 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает типы оценок
+   * @return {Promise<ScoreTypeDto[]>} - Список типов оценок
    */
   async getScoreTypes(): Promise<ScoreTypeDto[]> {
     return this.scoresClient.makeRequest<ScoreTypeDto[]>('get', 'types');
@@ -42,6 +45,7 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает семестры для оценок
+   * @return {Promise<SemesterDto[]>} - Список семестров
    */
   async getScoreSemesters(): Promise<SemesterDto[]> {
     return this.scoresClient.makeRequest<SemesterDto[]>('get', 'semesters');
@@ -49,6 +53,11 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает оценки по предмету
+   * @param semester - Семестр
+   * @param discipline - Дисциплина
+   * @param type - Тип оценки
+   * @param diplome - 0 - не идёт в диплом, 1 - идёт в диплом
+   *
    */
   async getScores(semester: string, discipline: string, type: string, diplome: 0 | 1): Promise<SubjectScoresDto[]> {
     return this.scoresClient.makeRequest<SubjectScoresDto[]>('get', 'scores', undefined, {
@@ -61,6 +70,7 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает дисциплины с пропусками
+   * @return {Promise<DisciplineDto[]>} - Список дисциплин с пропусками
    */
   async getAttendanceDisciplines(): Promise<DisciplineDto[]> {
     return this.attendanceClient.makeRequest<DisciplineDto[]>('get', 'disciplines');
@@ -68,6 +78,7 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает семестры с пропусками
+   * @return {Promise<SemesterDto[]>} - Список семестров с пропусками
    */
   async getAttendanceSemesters(): Promise<SemesterDto[]> {
     return this.attendanceClient.makeRequest<SemesterDto[]>('get', 'semesters');
@@ -75,6 +86,9 @@ export class AuthenticatedStudent extends BaseApiClient {
 
   /**
    * Получает данные о посещаемости
+   * @param discipline - Дисциплина
+   * @param semester - Семестр
+   * @return {Promise<AttendanceSubjectDto[]>} - Список посещаемости по предмету
    */
   async getAttendance(discipline: string, semester: string): Promise<AttendanceSubjectDto[]> {
     return this.attendanceClient.makeRequest<AttendanceSubjectDto[]>('get', '', undefined, {
