@@ -1,4 +1,4 @@
-export type Timetable = {
+export type TimetableDto = {
   start: string;
   end: string;
 };

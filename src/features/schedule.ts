@@ -1,7 +1,7 @@
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import { API_BASE } from '@/globals';
-import type { ApiResponse } from '@/types/api-response';
-import type { Schedule as ScheduleDto } from '@/types/schedule';
+import type { ApiResponseDto } from '@/types/api-response-dto';
+import type { ScheduleDto as ScheduleDto } from '@/types/schedule';
 
 class Schedule {
   private readonly http: AxiosInstance;
@@ -26,7 +26,7 @@ class Schedule {
    * @throws {Error} Если не удалось получить расписание или произошла ошибка API.
    */
   async getGroupSchedule(group: string, date: string): Promise<ScheduleDto | null> {
-    const response: AxiosResponse<ApiResponse<ScheduleDto>> = await this.http.get('', {
+    const response: AxiosResponse<ApiResponseDto<ScheduleDto>> = await this.http.get('', {
       params: {
         date,
         group
@@ -56,7 +56,7 @@ class Schedule {
    * @throws {Error} Если не удалось получить расписание или произошла ошибка API.
    */
   async getTeacherSchedule(teacher: string, date: string): Promise<ScheduleDto | null> {
-    const response: AxiosResponse<ApiResponse<ScheduleDto>> = await this.http.get('', {
+    const response: AxiosResponse<ApiResponseDto<ScheduleDto>> = await this.http.get('', {
       params: {
         date,
         teacher
@@ -86,7 +86,7 @@ class Schedule {
    * @throws {Error} Если не удалось получить расписание или произошла ошибка API.
    */
   async getCabinetSchedule(cab: string, date: string): Promise<ScheduleDto | null> {
-    const response: AxiosResponse<ApiResponse<ScheduleDto>> = await this.http.get('', {
+    const response: AxiosResponse<ApiResponseDto<ScheduleDto>> = await this.http.get('', {
       params: {
         date,
         cab

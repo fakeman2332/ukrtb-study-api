@@ -1,7 +1,7 @@
-import type { AuthResponse, User } from '@/types/auth-response';
+import type { AuthResponseDto, UserDto } from '@/types/auth-response-dto';
 import { API_BASE } from '@/globals';
 import axios, { type AxiosInstance } from 'axios';
-import type { ApiResponse } from '@/types/api-response';
+import type { ApiResponseDto } from '@/types/api-response-dto';
 import Attendance from '@/features/student/attendance';
 import TokenStorage from '@/features/tokenStorage';
 
@@ -21,18 +21,7 @@ class Student {
       headers: {
         Accept: 'application/json',
         apikey: this.apiKey
-      },
-      transformRequest: [
-        (data, headers) => {
-          const token = this.tokenStorage.getToken();
-
-          if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-          }
-
-          return data;
-        }
-      ]
+      }
     });
 
     this.tokenStorage = new TokenStorage();
@@ -44,15 +33,14 @@ class Student {
    * Получает токен авторизации студента.
    * @param {string} login - Логин студента.
    * @param {string} password - Пароль студента.
-   * @returns {Promise<AuthResponse>} Ответ с токеном и информацией о пользователе.
+   * @returns {Promise<AuthResponseDto>} Ответ с токеном и информацией о пользователе.
    * @throws {Error} Если не удалось выполнить вход или произошла ошибка API.
    */
-  async getToken(login: string, password: string): Promise<AuthResponse> {
-    const response = await this.http.post<ApiResponse<AuthResponse>>('login', {
-      params: {
-        login,
-        password
-      }
+  // @ts-ignore
+  async getToken(login: string, password: string): Promise<AuthResponseDto> {
+    const response = await this.http.post<ApiResponseDto<AuthResponseDto>>('login', {
+      login,
+      password
     });
 
     if (response.status !== 200) {
@@ -68,11 +56,11 @@ class Student {
 
   /**
    * Получает информацию о текущем пользователе.
-   * @returns {Promise<AuthResponse>} Ответ с информацией о пользователе.
+   * @returns {Promise<AuthResponseDto>} Ответ с информацией о пользователе.
    * @throws {Error} Если не удалось получить информацию о пользователе или произошла ошибка API.
    */
-  async getCurrentUser(): Promise<User> {
-    const response = await this.http.get<ApiResponse<User>>('');
+  async getCurrentUser(): Promise<UserDto> {
+    const response = await this.http.get<ApiResponseDto<UserDto>>('');
 
     if (response.status !== 200) {
       throw new Error(`Не удалось получить информацию о пользователе:\n${response.data}`);

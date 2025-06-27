@@ -1,7 +1,7 @@
 import axios, { type AxiosInstance } from 'axios';
 import { API_BASE } from '@/globals';
-import type { ApiResponse } from '@/types/api-response';
-import type { ScoreType, Semester, SubjectScores } from '@/types/student/score';
+import type { ApiResponseDto } from '@/types/api-response-dto';
+import type { ScoreTypeDto, SemesterDto, SubjectScoresDto } from '@/types/student/scoreDto';
 
 class Scores {
   private readonly http: AxiosInstance;
@@ -25,7 +25,7 @@ class Scores {
    * @throws {Error} Если не удалось получить дисциплины или произошла ошибка API.
    */
   async getDisciplines(authToken: string): Promise<string[]> {
-    const response = await this.http.get<ApiResponse<string[]>>('disciplines', {
+    const response = await this.http.get<ApiResponseDto<string[]>>('disciplines', {
       headers: {
         Authorization: `Bearer ${authToken}`
       }
@@ -52,8 +52,8 @@ class Scores {
    * @returns {Promise<string[]>} Список типов оценок.
    * @throws {Error} Если не удалось получить типы оценок или произошла ошибка API.
    */
-  async getScoreTypes(authToken: string): Promise<ScoreType[]> {
-    const response = await this.http.get<ApiResponse<ScoreType[]>>('types', {
+  async getScoreTypes(authToken: string): Promise<ScoreTypeDto[]> {
+    const response = await this.http.get<ApiResponseDto<ScoreTypeDto[]>>('types', {
       headers: {
         Authorization: `Bearer ${authToken}`
       }
@@ -77,11 +77,11 @@ class Scores {
   /**
    * Получает список семестров студента.
    * @param {string} authToken - Токен авторизации студента.
-   * @returns {Promise<Semester[]>} Список семестров.
+   * @returns {Promise<SemesterDto[]>} Список семестров.
    * @throws {Error} Если не удалось получить семестры или произошла ошибка API.
    */
-  async getSemesters(authToken: string): Promise<Semester[]> {
-    const response = await this.http.get<ApiResponse<Semester[]>>('semesters', {
+  async getSemesters(authToken: string): Promise<SemesterDto[]> {
+    const response = await this.http.get<ApiResponseDto<SemesterDto[]>>('semesters', {
       headers: {
         Authorization: `Bearer ${authToken}`
       }
@@ -109,7 +109,7 @@ class Scores {
    * @param {string} discipline - Название дисциплины.
    * @param {string} type - Тип оценки (например, "Ответ у доски", "Экзамен").
    * @param {0 | 1} diplome - Флаг "идёт в диплом" (0 - нет, 1 - да).
-   * @returns {Promise<ApiResponse<SubjectScores[]>>} Ответ с оценками по предмету.
+   * @returns {Promise<ApiResponseDto<SubjectScoresDto[]>>} Ответ с оценками по предмету.
    * @throws {Error} Если не удалось получить оценки или произошла ошибка API.
    */
   async getScores(
@@ -118,8 +118,8 @@ class Scores {
     discipline: string,
     type: string,
     diplome: 0 | 1
-  ): Promise<SubjectScores[]> {
-    const response = await this.http.get<ApiResponse<SubjectScores[]>>('scores', {
+  ): Promise<SubjectScoresDto[]> {
+    const response = await this.http.get<ApiResponseDto<SubjectScoresDto[]>>('scores', {
       headers: {
         Authorization: `Bearer ${authToken}`
       },

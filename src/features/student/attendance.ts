@@ -1,8 +1,8 @@
 import { API_BASE } from '@/globals';
 import { type AxiosInstance } from 'axios';
-import type { Discipline, Semester } from '@/types/student/score';
-import type { ApiResponse } from '@/types/api-response';
-import type { AttendanceSubject } from '@/types/student/attendance';
+import type { DisciplineDto, SemesterDto } from '@/types/student/scoreDto';
+import type { ApiResponseDto } from '@/types/api-response-dto';
+import type { AttendanceSubjectDto } from '@/types/student/attendanceDto';
 
 class Attendance {
   private readonly http: AxiosInstance;
@@ -16,22 +16,16 @@ class Attendance {
     this.http = http.create({
       baseURL: `${API_BASE}/attendances`
     });
-
-    console.log(this.http.defaults);
   }
 
   /**
    * Получает список дисциплин с пропусками студента.
    * @param {string} authToken - Токен авторизации студента.
-   * @returns {Promise<Discipline[]>} Список дисциплин.
+   * @returns {Promise<DisciplineDto[]>} Список дисциплин.
    * @throws {Error} Если не удалось получить дисциплины или произошла ошибка API.
    */
-  async getDisciplines(authToken: string): Promise<Discipline[]> {
-    const response = await this.http.get<ApiResponse<Discipline[]>>('disciplines', {
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      }
-    });
+  async getDisciplines(): Promise<DisciplineDto[]> {
+    const response = await this.http.get<ApiResponseDto<DisciplineDto[]>>('disciplines');
 
     if (response.status === 204) {
       return [];
@@ -51,11 +45,11 @@ class Attendance {
   /**
    * Получает список семестров с пропусками у студента.
    * @param {string} authToken - Токен авторизации студента.
-   * @returns {Promise<Semester[]>} Список семестров.
+   * @returns {Promise<SemesterDto[]>} Список семестров.
    * @throws {Error} Если не удалось получить семестры или произошла ошибка API.
    */
-  async getSemesters(authToken: string): Promise<Semester[]> {
-    const response = await this.http.get<ApiResponse<Semester[]>>('semesters', {
+  async getSemesters(authToken: string): Promise<SemesterDto[]> {
+    const response = await this.http.get<ApiResponseDto<SemesterDto[]>>('semesters', {
       headers: {
         Authorization: `Bearer ${authToken}`
       }
@@ -81,11 +75,11 @@ class Attendance {
    * @param {string} authToken - Токен авторизации студента.
    * @param {string} discipline - Название дисциплины.
    * @param {string} semester - Название семестра.
-   * @returns {Promise<AttendanceSubject[]>} Список пропусков по предмету.
+   * @returns {Promise<AttendanceSubjectDto[]>} Список пропусков по предмету.
    * @throws {Error} Если не удалось получить пропуски или произошла ошибка API.
    */
-  async getAttendance(authToken: string, discipline: string, semester: string): Promise<AttendanceSubject[]> {
-    const response = await this.http.get<ApiResponse<AttendanceSubject[]>>('', {
+  async getAttendance(authToken: string, discipline: string, semester: string): Promise<AttendanceSubjectDto[]> {
+    const response = await this.http.get<ApiResponseDto<AttendanceSubjectDto[]>>('', {
       headers: {
         Authorization: `Bearer ${authToken}`
       },

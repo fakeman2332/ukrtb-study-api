@@ -1,32 +1,32 @@
-export type AuthResponse = {
+export type AuthResponseDto = {
   token: string;
-  user: User;
+  user: UserDto;
 };
 
-export type User = {
+export type UserDto = {
   login: string;
   loggined_at: string;
-  student: Student;
+  student: StudentDto;
 };
 
-export type Student = {
+export type StudentDto = {
   surname: string;
   name: string;
   patronymic: string;
   fullName: string;
   birthday: string;
   email: string;
-  group: Group;
+  group: GroupDto;
 };
 
-export type Group = {
+export type GroupDto = {
   title: string;
   course: number;
   commercial: boolean;
-  specialty: Specialty;
+  specialty: SpecialtyDto;
 };
 
-export type Specialty = {
+export type SpecialtyDto = {
   code: string;
   title: string;
 };

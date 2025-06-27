@@ -1,13 +1,13 @@
-import type { Lesson } from '@/types/schedule/lesson';
-import type { Teacher } from '@/types/teacher';
+import type { LessonDto } from '@/types/schedule/lessonDto';
+import type { TeacherDto } from '@/types/teacherDto';
 
-export type Schedule = {
+export type ScheduleDto = {
   type: 'groups' | 'teachers' | 'cabs';
   date: string;
   title: string;
-  schedules: Lesson[];
+  schedules: LessonDto[];
 };
 
-export type ScheduleTeacher = Teacher & {
+export type ScheduleTeacherDto = TeacherDto & {
   link: string;
 };
