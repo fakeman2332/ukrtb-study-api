@@ -1,111 +1,55 @@
-import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import { API_BASE } from '@/globals';
-import type { ApiResponseDto } from '@/types/api-response-dto';
-import type { ScheduleDto as ScheduleDto } from '@/types/schedule';
+import type { ScheduleDto } from '@/types/schedule';
+import { BaseApiClient } from '@/features/api-client';
 
-class Schedule {
-  private readonly http: AxiosInstance;
-
-  constructor(private readonly apiKey: string) {
-    this.apiKey = apiKey;
-
-    this.http = axios.create({
-      baseURL: `${API_BASE}/schedules`,
-      headers: {
-        Accept: 'application/json',
-        apikey: this.apiKey
-      }
-    });
+class Schedule extends BaseApiClient {
+  constructor(apiKey: string) {
+    super(`${API_BASE}/schedules`, apiKey);
   }
 
   /**
    * Получает расписание группы на указанную дату.
-   * @param {string} group - Название группы.
-   * @param {string} date - Дата в формате YYYY-MM-DD.
-   * @returns {Promise<ScheduleDto | null>} Расписание группы или null, если расписание отсутствует.
-   * @throws {Error} Если не удалось получить расписание или произошла ошибка API.
+   * @param group - Название группы
+   * @param date - Дата в формате YYYY-MM-DD
+   * @returns Расписание группы или null, если расписание отсутствует
    */
-  async getGroupSchedule(group: string, date: string): Promise<ScheduleDto | null> {
-    const response: AxiosResponse<ApiResponseDto<ScheduleDto>> = await this.http.get('', {
-      params: {
-        date,
-        group
-      }
+  async getGroupSchedule(group: string, date: string): Promise<ScheduleDto[] | null> {
+    const result = await this.makeRequest<ScheduleDto[]>('get', '', undefined, {
+      date,
+      group
     });
 
-    if (response.status === 204) {
-      return null;
-    }
-
-    if (response.status !== 200) {
-      throw new Error(`Не удалось получить расписание группы ${group} на дату ${date}:\n${response.data}`);
-    }
-
-    if (!response.data.success) {
-      throw new Error(`Ошибка API: ${response.data}`);
-    }
-
-    return response.data.data;
+    return Array.isArray(result) && result.length === 0 ? null : result;
   }
 
   /**
    * Получает расписание преподавателя на указанную дату.
-   * @param {string} teacher - ФИО преподавателя.
-   * @param {string} date - Дата в формате YYYY-MM-DD.
-   * @returns {Promise<ScheduleDto | null>} Расписание преподавателя или null, если расписание отсутствует.
-   * @throws {Error} Если не удалось получить расписание или произошла ошибка API.
+   * @param teacher - ФИО преподавателя
+   * @param date - Дата в формате YYYY-MM-DD
+   * @returns Расписание преподавателя или null, если расписание отсутствует
    */
-  async getTeacherSchedule(teacher: string, date: string): Promise<ScheduleDto | null> {
-    const response: AxiosResponse<ApiResponseDto<ScheduleDto>> = await this.http.get('', {
-      params: {
-        date,
-        teacher
-      }
+  async getTeacherSchedule(teacher: string, date: string): Promise<ScheduleDto[] | null> {
+    const result = await this.makeRequest<ScheduleDto[]>('get', '', undefined, {
+      date,
+      teacher
     });
 
-    if (response.status === 204) {
-      return null;
-    }
-
-    if (response.status !== 200) {
-      throw new Error(`Не удалось получить расписание преподавателя ${teacher} на дату ${date}:\n${response.data}`);
-    }
-
-    if (!response.data.success) {
-      throw new Error(`Ошибка API: ${response.data}`);
-    }
-
-    return response.data.data;
+    return Array.isArray(result) && result.length === 0 ? null : result;
   }
 
   /**
    * Получает расписание кабинета на указанную дату.
-   * @param {string} cab - Номер кабинета.
-   * @param {string} date - Дата в формате YYYY-MM-DD.
-   * @return {Promise<ScheduleDto | null>} Расписание кабинета или null, если расписание отсутствует.
-   * @throws {Error} Если не удалось получить расписание или произошла ошибка API.
+   * @param cab - Номер кабинета
+   * @param date - Дата в формате YYYY-MM-DD
+   * @returns Расписание кабинета или null, если расписание отсутствует
    */
-  async getCabinetSchedule(cab: string, date: string): Promise<ScheduleDto | null> {
-    const response: AxiosResponse<ApiResponseDto<ScheduleDto>> = await this.http.get('', {
-      params: {
-        date,
-        cab
-      }
+  async getCabinetSchedule(cab: string, date: string): Promise<ScheduleDto[] | null> {
+    const result = await this.makeRequest<ScheduleDto[]>('get', '', undefined, {
+      date,
+      cab
     });
 
-    if (response.status === 204) {
-      return null;
-    }
-
-    if (response.status !== 200) {
-      throw new Error(`Не удалось получить расписание кабинета ${cab} на дату ${date}:\n${response.data}`);
-    }
-
-    if (!response.data.success) {
-      throw new Error(`Ошибка API: ${response.data}`);
-    }
-
-    return response.data.data;
+    return Array.isArray(result) && result.length === 0 ? null : result;
   }
 }
 
