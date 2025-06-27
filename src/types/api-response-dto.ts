@@ -1,4 +1,4 @@
-export type ApiResponseDto<T = any> = {
+export type ApiResponseDto<T = unknown> = {
   success: boolean;
   data: T;
 

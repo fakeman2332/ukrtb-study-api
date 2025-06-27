@@ -1,5 +1,4 @@
 import axios, { type AxiosInstance, type AxiosError } from 'axios';
-import { API_BASE } from '@/globals';
 import type { ApiResponseDto } from '@/types/api-response-dto';
 
 class BaseApiClient {
@@ -16,7 +15,7 @@ class BaseApiClient {
     });
   }
 
-  public async makeRequest<T>(method: 'get' | 'post', url: string, data?: any, params?: any): Promise<T> {
+  public async makeRequest<T>(method: 'get' | 'post', url: string, data?: unknown, params?: unknown): Promise<T> {
     try {
       const response = await this.http[method]<ApiResponseDto<T>>(url, method === 'post' ? data : { params });
 
@@ -37,22 +36,22 @@ class BaseApiClient {
 
   private handleError(error: AxiosError): never {
     if (error.response) {
-      const errorData = error.response.data as any;
+      const errorData = error.response.data as { message?: string };
       const message = errorData?.message || error.message;
       const status = error.response.status;
 
       switch (status) {
         case 401:
-          throw new Error('Unauthorized: Invalid or expired token');
+          throw new Error('Не авторизован: Токен доступа истек или недействителен');
         case 403:
-          throw new Error('Forbidden: Access denied');
+          throw new Error('Запрещено: У вас нет доступа к этому ресурсу');
         case 404:
-          throw new Error('Not found: Resource does not exist');
+          throw new Error('Не найдено: Запрашиваемый ресурс не существует');
         default:
-          throw new Error(`Server error (${status}): ${message}`);
+          throw new Error(`Ошибка сервера (${status}): ${message}`);
       }
     } else if (error.request) {
-      throw new Error('Network error: Unable to connect to server');
+      throw new Error('Ошибка сети: Не удалось получить ответ от сервера');
     }
     throw error;
   }
