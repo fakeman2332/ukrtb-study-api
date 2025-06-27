@@ -13,8 +13,8 @@ class Schedule extends BaseApiClient {
    * @param date - Дата в формате YYYY-MM-DD
    * @returns Расписание группы или null, если расписание отсутствует
    */
-  async getGroupSchedule(group: string, date: string): Promise<ScheduleDto[] | null> {
-    const result = await this.makeRequest<ScheduleDto[]>('get', '', undefined, {
+  async getGroupSchedule(group: string, date: string): Promise<ScheduleDto | null> {
+    const result = await this.makeRequest<ScheduleDto>('get', '', undefined, {
       date,
       group
     });
@@ -28,8 +28,8 @@ class Schedule extends BaseApiClient {
    * @param date - Дата в формате YYYY-MM-DD
    * @returns Расписание преподавателя или null, если расписание отсутствует
    */
-  async getTeacherSchedule(teacher: string, date: string): Promise<ScheduleDto[] | null> {
-    const result = await this.makeRequest<ScheduleDto[]>('get', '', undefined, {
+  async getTeacherSchedule(teacher: string, date: string): Promise<ScheduleDto | null> {
+    const result = await this.makeRequest<ScheduleDto>('get', '', undefined, {
       date,
       teacher
     });
@@ -43,8 +43,8 @@ class Schedule extends BaseApiClient {
    * @param date - Дата в формате YYYY-MM-DD
    * @returns Расписание кабинета или null, если расписание отсутствует
    */
-  async getCabinetSchedule(cab: string, date: string): Promise<ScheduleDto[] | null> {
-    const result = await this.makeRequest<ScheduleDto[]>('get', '', undefined, {
+  async getCabinetSchedule(cab: string, date: string): Promise<ScheduleDto | null> {
+    const result = await this.makeRequest<ScheduleDto>('get', '', undefined, {
       date,
       cab
     });
