@@ -3,6 +3,7 @@ import type { GroupDto } from '@/types/groupDto';
 import type { TeacherDto } from '@/types/teacherDto';
 import type { CabinetDto } from '@/types/schedule/cabinetDto';
 import { BaseApiClient } from '@/features/api-client';
+import type { TimetableResponseDto } from '@/types/schedule/timetableDto';
 
 class Lists extends BaseApiClient {
   constructor(apiKey: string) {
@@ -31,6 +32,14 @@ class Lists extends BaseApiClient {
    */
   async getCabs(): Promise<CabinetDto[]> {
     return this.makeRequest<CabinetDto[]>('get', 'cabs');
+  }
+
+  /**
+   * Получает расписание звонков
+   * @returns Расписание звонков
+   */
+  async getTimetables(): Promise<TimetableResponseDto> {
+    return this.makeRequest<TimetableResponseDto>('get', 'timetables');
   }
 }
 
