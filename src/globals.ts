@@ -1,1 +1,1 @@
-export const API_BASE = 'https://newstudy.ukrtb.ru/api';
+export const API_BASE = 'https://study.ukrtb.ru/api';
