@@ -60,12 +60,12 @@ export class AuthenticatedStudent extends BaseApiClient {
    *
    */
   async getScores(semester: string, discipline: string, type: string, diplome: 0 | 1): Promise<SubjectScoresDto[]> {
-    return this.scoresClient.makeRequest<SubjectScoresDto[]>('get', 'scores', undefined, {
+    return this.scoresClient.makeRequest<SubjectScoresDto[]>('get', '', undefined, {
       semester,
       discipline,
       type,
       diplome
-    });
+    }); 
   }
 
   /**
