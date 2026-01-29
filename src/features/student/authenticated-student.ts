@@ -54,18 +54,18 @@ export class AuthenticatedStudent extends BaseApiClient {
   /**
    * Получает оценки по предмету
    * @param semester - Семестр
-   * @param discipline - Дисциплина
-   * @param type - Тип оценки
-   * @param diplome - 0 - не идёт в диплом, 1 - идёт в диплом
+   * @param discipline - Дисциплина (опционально)
+   * @param type - Тип оценки (опционально)
+   * @param diplome - 0 - не идёт в диплом, 1 - идёт в диплом (опционально)
    *
    */
-  async getScores(semester: string, discipline: string, type: string, diplome: 0 | 1): Promise<SubjectScoresDto[]> {
-    return this.scoresClient.makeRequest<SubjectScoresDto[]>('get', '', undefined, {
-      semester,
-      discipline,
-      type,
-      diplome
-    }); 
+  async getScores(semester: string, discipline?: string, type?: string, diplome?: 0 | 1): Promise<SubjectScoresDto[]> {
+    const params: Record<string, string | number> = { semester };
+    if (discipline !== undefined) params.discipline = discipline;
+    if (type !== undefined) params.type = type;
+    if (diplome !== undefined) params.diplome = diplome;
+
+    return this.scoresClient.makeRequest<SubjectScoresDto[]>('get', '', undefined, params); 
   }
 
   /**
